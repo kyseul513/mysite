@@ -42,11 +42,11 @@
 					<div class="clear"></div>
 				</div>
 				<!-- //content-head -->
-				
+
 				<div id="board">
 					<div id="read">
 						<form action="" method="get">
-							<!-- 작성자 -->							
+							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">${bVo.name}</span>
 							</div>
@@ -71,12 +71,9 @@
 								<span class="form-value"> ${bVo.content} <br>
 								</span>
 							</div>
-							
-							<input type="hidden" name="no" value="${param.no}">
-	
-							<a id="btn_modify" href="/mysite/board?action=modifyForm">수정</a> <a id="btn_modify" href="/mysite/board">목록</a>
 
-							
+							<input type="hidden" name="no" value="${param.no}"> <a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no}">수정</a> <a id="btn_modify" href="/mysite/board">목록</a>
+
 						</form>
 						<!-- //form -->
 					</div>

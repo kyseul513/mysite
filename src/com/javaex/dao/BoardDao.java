@@ -165,7 +165,7 @@ public class BoardDao {
 				String name = rs.getString("name");
 
 				boardVo = new BoardVo(title, content, hit, rdate, name);
-				System.out.println(boardVo);
+				//System.out.println(boardVo);
 			}	
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
