@@ -142,11 +142,11 @@ public class BoardDao {
 		
 		try {
 			String qry = "";
-			qry += " select bo.title, ";
-			qry += "		bo.content, ";
-			qry += "		bo.hit, ";
+			qry += " select bo.title title, ";
+			qry += "		bo.content content, ";
+			qry += "		bo.hit hit, ";
 			qry += "		to_char(reg_date, 'yyyy-mm-dd') reg_date, ";
-			qry += "		us.name ";
+			qry += "		us.name name";
 			qry += "		from board bo, users us ";
 			qry += "		where bo.user_no = us.no ";
 			qry += "		and bo.no = ? ";
@@ -165,6 +165,7 @@ public class BoardDao {
 				String name = rs.getString("name");
 
 				boardVo = new BoardVo(title, content, hit, rdate, name);
+				System.out.println(boardVo);
 			}	
 		} catch (SQLException e) {
 			System.out.println("error:" + e);

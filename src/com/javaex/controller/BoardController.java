@@ -46,6 +46,17 @@ public class BoardController extends HttpServlet {
 		
 		}else if("read".equals(act)){
 			
+			int no = Integer.parseInt(request.getParameter("no"));		//list->read넘어올 때 no값 받아오기
+			
+			BoardDao boardDao = new BoardDao();
+			BoardVo boardVo = boardDao.getContent(no);	//getContent에 no 넣고 값 받아와 boardVo에 넣기
+			
+			request.setAttribute("bVo", boardVo);
+			
+			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
+	
+		}else if("modifyForm".equals(act)) {
+						
 			HttpSession session = request.getSession();
 			int no = ((BoardVo)session.getAttribute("boardList")).getNo();
 			
@@ -55,10 +66,6 @@ public class BoardController extends HttpServlet {
 			
 			request.setAttribute("content", boardVo);
 			
-			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
-	
-		}else if("modifyForm".equals(act)) {
-						
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
 			
 		}else if("modify".equals(act)) {

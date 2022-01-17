@@ -68,7 +68,7 @@
 							<tbody>
 								<tr>
 									<td>${vo.no}</td>	<!-- vo상 이름 입력. -->
-									<td class="text-left"><a href="/mysite/board?action=read">${vo.title}</a></td>
+									<td class="text-left"><a href="/mysite/board?action=read&no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.name}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.reg_date}</td>
