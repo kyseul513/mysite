@@ -72,7 +72,13 @@
 								</span>
 							</div>
 
-							<input type="hidden" name="no" value="${param.no}"> <a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no}">수정</a> <a id="btn_modify" href="/mysite/board">목록</a>
+							<input type="hidden" name="no" value="${param.no}">
+							
+							<c:if test="${bVo.user_no eq authUser.no}">
+							<a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no}">수정</a>
+							</c:if>
+							
+							<a id="btn_modify" href="/mysite/board">목록</a>
 
 						</form>
 						<!-- //form -->

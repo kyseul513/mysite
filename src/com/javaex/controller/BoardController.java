@@ -24,7 +24,20 @@ public class BoardController extends HttpServlet {
 		
 		if("writeForm".equals(act)) {
 			
-			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			
+			System.out.println(authUser);
+			
+			if(authUser != null) {
+				System.out.println("로그인했을때");
+				WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
+				
+			}else{
+				System.out.println("로그인 안했을 때");
+				WebUtil.redirect(request, response, "/mysite/main");
+			}
+
 			
 		}else if("insert".equals(act)){
 			
@@ -44,6 +57,15 @@ public class BoardController extends HttpServlet {
 			
 			WebUtil.redirect(request, response, "/mysite/board");
 		
+		}else if("delete".equals(act)) {
+			
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			BoardDao boardDao = new BoardDao();
+			boardDao.delete(no);	//Dao의 delete에 no 전달
+			
+			WebUtil.redirect(request, response, "/mysite/board");
+			
 		}else if("read".equals(act)){
 			
 			int no = Integer.parseInt(request.getParameter("no"));	//list->read넘어올 때 파라미터에서 no값 받아오기
@@ -67,6 +89,18 @@ public class BoardController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
 			
 		}else if("modify".equals(act)) {
+			
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			BoardVo boardVo = new BoardVo();
+			boardVo.setTitle(title);
+			boardVo.setContent(content);
+			boardVo.setNo(no);
+			
+			BoardDao boardDao = new BoardDao();
+			boardDao.modify(boardVo);
 			
 			WebUtil.redirect(request, response, "/mysite/board");
 			

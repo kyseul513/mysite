@@ -131,7 +131,7 @@ public class UserController extends HttpServlet {
 			UserDao userDao = new UserDao();
 			userDao.modify(vo);
 			
-			UserVo sVo = (UserVo)session.getAttribute("authUser");
+			UserVo sVo = (UserVo)session.getAttribute("authUser");	//세션에 변경된 이름 저장
 			sVo.setName(name);
 			
 			WebUtil.redirect(request, response, "/mysite/main");

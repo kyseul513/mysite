@@ -63,20 +63,22 @@
 
 							<!-- 제목 -->
 							<div class="form-group">
-								<label class="form-text" for="txt-title">제목</label> <input type="text" id="txt-title" name="" value="${bVo.title}">
+								<label class="form-text" for="txt-title">제목</label>
+								<input type="text" id="txt-title" name="title" value="${bVo.title}">
 							</div>
 
 
 
 							<!-- 내용 -->
 							<div class="form-group">
-								<textarea id="txt-content">${bVo.content}</textarea>
+								<textarea id="txt-content" name="content">${bVo.content}</textarea>
 							</div>
 
 							<a id="btn_cancel" href="/mysite/board">취소</a>
 							<button id="btn_modify" type="submit">수정</button>
-
-							<input type="hidden" name="no" value="${param.no}">
+							
+							<input type="hidden" name="action" value="modify">
+							<input type="hidden" name="no" value="${param.no}">	<!-- 파라미터로 올라간 해당 게시물의 no값 받기.-->
 
 						</form>
 						<!-- //form -->

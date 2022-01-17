@@ -12,15 +12,6 @@ public class BoardVo {
 	public BoardVo() {
 	}
 
-	public BoardVo(String title, String content, int hit, String reg_date, String name) {
-		super();
-		this.title = title;
-		this.content = content;
-		this.hit = hit;
-		this.reg_date = reg_date;
-		this.name = name;
-	}
-
 	public BoardVo(int no, String title, String content, int hit, String reg_date, int user_no, String name) {
 		this.no = no;
 		this.title = title;

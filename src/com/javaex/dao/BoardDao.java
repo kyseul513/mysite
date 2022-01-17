@@ -86,7 +86,60 @@ public class BoardDao {
 		close();
 		return count;
 	}
+	
+	
+	public void modify(BoardVo boardVo) {
+	
+		getConnection();
+		
+		try {
+			String qry = "";
+			
+			qry += " update board ";
+			qry += " set title = ?, ";
+			qry += "	 content = ? ";
+			qry += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(qry);
+			
+			pstmt.setString(1, boardVo.getTitle());	//boardVo에서 title가져와 setString 에 담기
+			pstmt.setString(2, boardVo.getContent());
+			pstmt.setInt(3, boardVo.getNo());
+			
+			pstmt.executeQuery();
+			
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		
+		close();
+		
+	}
+	
+	public void delete(int no) {
+		
+		getConnection();
+		
+		try {
+			String qry = "";
+			qry += " delete from board ";
+			qry += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(qry);
+			
+			pstmt.setInt(1, no);	//controller에서 받아온 파라미터 no값
+			
+			pstmt.executeQuery();
+			
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
 
+		close();
+		
+	}
+
+	//게시판
 	public List<BoardVo> getList() {
 
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
@@ -134,7 +187,7 @@ public class BoardDao {
 		return boardList;
 	}
 	
-	//read.jsp
+	//게시글(read.jsp)
 	public BoardVo getContent(int no) {
 		
 		BoardVo boardVo = null;
@@ -142,11 +195,13 @@ public class BoardDao {
 		
 		try {
 			String qry = "";
-			qry += " select bo.title title, ";
-			qry += "		bo.content content, ";
-			qry += "		bo.hit hit, ";
+			qry += " select bo.no, ";
+			qry += "		bo.title, ";
+			qry += "		bo.content, ";
+			qry += "		bo.hit, ";
 			qry += "		to_char(reg_date, 'yyyy-mm-dd') reg_date, ";
-			qry += "		us.name name";
+			qry += "        bo.user_no, ";
+			qry += "		us.name";
 			qry += "		from board bo, users us ";
 			qry += "		where bo.user_no = us.no ";
 			qry += "		and bo.no = ? ";
@@ -162,9 +217,10 @@ public class BoardDao {
 				String content = rs.getString("content");
 				int hit = rs.getInt("hit");
 				String rdate = rs.getString("reg_date");
+				int userNo = rs.getInt("user_no");
 				String name = rs.getString("name");
 
-				boardVo = new BoardVo(title, content, hit, rdate, name);
+				boardVo = new BoardVo(no, title, content, hit, rdate, userNo, name);
 				//System.out.println(boardVo);
 			}	
 		} catch (SQLException e) {
